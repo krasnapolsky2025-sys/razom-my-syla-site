@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://razom-my-syla.pages.dev/sitemap.xml
