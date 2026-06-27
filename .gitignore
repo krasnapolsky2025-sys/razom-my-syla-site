@@ -14,3 +14,7 @@ MEDIA_PUBLIC_REVIEW.md
 server.js
 serve-site.bat
 data/site-content.json
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
