@@ -19,77 +19,71 @@
       content="Люди, волонтери, партнери, донори та команди, завдяки яким допомога фонду доходить до людей."
     />
     <meta property="og:url" content="https://razom-my-syla-site.pages.dev/honor/" />
-    <meta property="og:image" content="assets/og-razom-my-syla.webp" />
+    <meta property="og:image" content="/assets/og-razom-my-syla.webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Дошка пошани фонду «Разом ми сила»" />
     <meta name="twitter:description" content="Публічна подяка волонтерам, партнерам, донорам і командам фонду." />
-    <meta name="twitter:image" content="assets/og-razom-my-syla.webp" />
+    <meta name="twitter:image" content="/assets/og-razom-my-syla.webp" />
     <title>Дошка пошани | Благодійний фонд «Разом ми сила»</title>
     <link rel="canonical" href="https://razom-my-syla-site.pages.dev/honor/" />
-    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/assets/favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800;900&family=Spectral:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="honor-page">
     <header class="site-header" data-header>
       <a class="brand" href="/" aria-label="Разом ми сила">
         <span class="brand-logo" aria-hidden="true">
-          <img src="assets/logo-razom.png" alt="" />
+          <img src="/assets/logo-razom.png" alt="" />
         </span>
         <span class="brand-text">
-          <strong data-i18n="brand.name">Разом ми сила</strong>
-          <span data-i18n="brand.type">Благодійний фонд</span>
+          <strong>Разом ми сила</strong>
+          <small>Благодійний фонд</small>
         </span>
       </a>
 
-      <nav class="site-nav" id="site-nav" aria-label="Основна навігація">
+      <nav class="main-nav" aria-label="Головна навігація">
         <a href="/#about" data-i18n="nav.about">Про фонд</a>
-        <a href="/#activity" data-i18n="nav.activity">Діяльність</a>
-        <a href="/#report" data-i18n="nav.report">Звітність</a>
+        <a href="/#activity" data-i18n="nav.activity">Напрями</a>
+        <a href="/#report" data-i18n="nav.report">Звіти</a>
         <a href="/#donate" data-i18n="nav.donate">Підтримати</a>
         <a href="/honor/" data-i18n="nav.honor">Дошка пошани</a>
         <a href="/#documents" data-i18n="nav.documents">Документи</a>
         <a href="/#contacts" data-i18n="nav.contacts">Контакти</a>
       </nav>
 
-      <div class="header-tools">
-        <div class="language-switcher" aria-label="Мова сайту">
-          <button type="button" data-lang-switch="uk" aria-pressed="true">UA</button>
-          <button type="button" data-lang-switch="en" aria-pressed="false">EN</button>
-          <button type="button" data-lang-switch="de" aria-pressed="false">DE</button>
-          <button type="button" data-lang-switch="pl" aria-pressed="false">PL</button>
-          <button type="button" data-lang-switch="ro" aria-pressed="false">RO</button>
-          <button type="button" data-lang-switch="it" aria-pressed="false">IT</button>
+      <div class="header-controls">
+        <div class="language-switcher" aria-label="Вибір мови">
+          <button type="button" class="is-active" data-lang="uk">UA</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="de">DE</button>
+          <button type="button" data-lang="pl">PL</button>
+          <button type="button" data-lang="ro">RO</button>
+          <button type="button" data-lang="it">IT</button>
         </div>
-        <a class="header-action" href="/#donate" data-i18n="nav.donate">Підтримати</a>
+        <a class="header-action" href="/#donate" data-i18n="nav.cta">Допомогти</a>
       </div>
-
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </header>
 
-    <main id="top">
+    <main>
       <section class="honor-page-hero" aria-label="Дошка пошани фонду">
         <div class="honor-page-hero-inner">
-          <p class="eyebrow">Публічна подяка</p>
+          <p class="section-label">Публічна подяка</p>
           <h1>Дошка пошани фонду «Разом ми сила»</h1>
           <p>
-            Люди, волонтери, партнери, донори та команди, завдяки яким допомога
-            доходить до людей, громад і захисників України.
+            Люди, волонтери, партнери, донори та команди, завдяки яким допомога доходить до людей,
+            громад і захисників України.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="/#donate">Підтримати фонд</a>
-            <a class="button button-secondary" href="/#contacts">Стати партнером</a>
+            <a class="button button-secondary" href="/#report">Переглянути звіти</a>
           </div>
         </div>
       </section>
@@ -97,20 +91,20 @@
       <section class="section honor-page-stats" aria-label="Категорії дошки пошани">
         <div class="honor-stat-grid">
           <article>
-            <span>Волонтери</span>
-            <p>Люди, які допомагають з видачами, комунікацією, сортуванням і роботою на місцях.</p>
+            <strong>Волонтери</strong>
+            <span>Люди, які допомагають на видачах, складах і в комунікації.</span>
           </article>
           <article>
-            <span>Партнери</span>
-            <p>Організації, бізнес і групи, які передають ресурси та допомагають закривати потреби.</p>
+            <strong>Партнери</strong>
+            <span>Організації та бізнес, що передають ресурси для допомоги.</span>
           </article>
           <article>
-            <span>Донори</span>
-            <p>Благодійники, які підтримують збори, пальне, гуманітарні виїзди та адресну допомогу.</p>
+            <strong>Донори</strong>
+            <span>Спільнота, яка підтримує фонд фінансово й матеріально.</span>
           </article>
           <article>
-            <span>Команди</span>
-            <p>Логістика, медицина, громади й координація, які перетворюють підтримку на результат.</p>
+            <strong>Команди</strong>
+            <span>Логістика, медицина, громади та координаційні напрями.</span>
           </article>
         </div>
       </section>
@@ -118,18 +112,18 @@
       <section class="section honor-board-section" aria-label="Повна дошка пошани">
         <div class="section-heading">
           <div>
-            <p class="section-label">Повна дошка</p>
-            <h2>Записи, які можна фільтрувати і швидко поповнювати.</h2>
+            <p class="section-label">Разом працюємо</p>
+            <h2>Повна дошка пошани</h2>
           </div>
           <p>
-            Поки реальний персональний список не затверджено, на сторінці використані
-            нейтральні демонстраційні записи без персональних даних.
+            Цей список можна розширювати: додавати нових людей, фото, міста, ролі та короткі історії
+            внеску через файл <code>data/honor-board.json</code>.
           </p>
         </div>
 
         <div class="honor-toolbar">
-          <div class="honor-filters" role="group" aria-label="Фільтр категорій">
-            <button type="button" data-honor-filter="all" aria-pressed="true">Усі</button>
+          <div class="honor-filters" role="group" aria-label="Фільтр за категорією">
+            <button type="button" data-honor-filter="all" aria-pressed="true" class="is-active">Усі</button>
             <button type="button" data-honor-filter="team" aria-pressed="false">Команда</button>
             <button type="button" data-honor-filter="volunteer" aria-pressed="false">Волонтери</button>
             <button type="button" data-honor-filter="partner" aria-pressed="false">Партнери</button>
@@ -140,11 +134,11 @@
           </div>
 
           <label class="honor-search">
-            <span>Пошук по дошці</span>
+            <span>Пошук</span>
             <input
               type="search"
               data-honor-search
-              placeholder="Ім'я, роль, місто або внесок"
+              placeholder="Ім’я, роль, місто або внесок"
               autocomplete="off"
             />
           </label>
@@ -156,10 +150,13 @@
     </main>
 
     <footer class="site-footer">
-      <p data-i18n="footer.copy">© <span id="year"></span> Благодійний фонд «Разом ми сила».</p>
-      <a href="/" data-i18n="footer.top">На початок</a>
+      <div>
+        <strong>Разом ми сила</strong>
+        <span>Благодійний фонд</span>
+      </div>
+      <a href="/" data-i18n="footer.top">На головну</a>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>
