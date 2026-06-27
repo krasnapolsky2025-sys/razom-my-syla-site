@@ -1,3 +1,1 @@
-/honor /honor.html 200
-/honor/ /honor.html 200
-/* /index.html 200
+# Static multipage site. /honor/ is served from honor/index.html.

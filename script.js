@@ -1772,7 +1772,7 @@ const renderManagedContent = (content = {}) => {
   }
 };
 
-fetch("data/public-content.json?cache=" + Date.now(), { cache: "no-store" })
+fetch("/data/public-content.json?cache=" + Date.now(), { cache: "no-store" })
   .then((response) => (response.ok ? response.json() : null))
   .then((content) => {
     if (content) renderManagedContent(content);
@@ -1780,7 +1780,7 @@ fetch("data/public-content.json?cache=" + Date.now(), { cache: "no-store" })
   .catch(() => {});
 
 if (honorFeaturedGrid || honorBoardGrid) {
-  fetch("data/honor-board.json?cache=" + Date.now(), { cache: "no-store" })
+  fetch("/data/honor-board.json?cache=" + Date.now(), { cache: "no-store" })
     .then((response) => (response.ok ? response.json() : null))
     .then((items) => {
       if (Array.isArray(items)) {
