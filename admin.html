@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Адмінка дошки пошани | Разом ми сила</title>
+    <meta name="description" content="Захищене керування дошкою пошани фонду Разом ми сила.">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/admin.css">
+  </head>
+  <body class="admin-page">
+    <header class="admin-header">
+      <a class="admin-brand" href="/" aria-label="На головну">
+        <img src="/assets/logo-razom.png" alt="Разом ми сила">
+        <span>
+          <strong>Разом ми сила</strong>
+          <small>адмінка дошки пошани</small>
+        </span>
+      </a>
+      <button class="admin-link hidden" id="logoutButton" type="button">Вийти</button>
+    </header>
+
+    <main class="admin-shell">
+      <section class="admin-login" id="loginView" aria-labelledby="loginTitle">
+        <div class="admin-panel admin-login-panel">
+          <p class="admin-eyebrow">Захищений доступ</p>
+          <h1 id="loginTitle">Вхід в адмінку</h1>
+          <p class="admin-muted">Пароль зберігається тільки у змінних Vercel. У коді сайту його немає.</p>
+          <form id="loginForm" class="admin-form">
+            <label>
+              Пароль
+              <input id="passwordInput" type="password" autocomplete="current-password" required>
+            </label>
+            <button class="admin-primary" type="submit">Увійти</button>
+          </form>
+          <p class="admin-status" id="loginStatus" role="status"></p>
+        </div>
+      </section>
+
+      <section class="admin-app hidden" id="appView" aria-labelledby="adminTitle">
+        <div class="admin-hero">
+          <div>
+            <p class="admin-eyebrow">Дошка пошани</p>
+            <h1 id="adminTitle">Керування людьми та партнерами</h1>
+            <p class="admin-muted">Зміни зберігаються у GitHub-файл <code>data/honor-board.json</code>, після чого Vercel оновить сайт.</p>
+          </div>
+          <div class="admin-actions">
+            <button class="admin-secondary" id="reloadButton" type="button">Оновити</button>
+            <button class="admin-primary" id="saveButton" type="button">Зберегти в GitHub</button>
+          </div>
+        </div>
+
+        <p class="admin-status" id="appStatus" role="status"></p>
+
+        <div class="admin-grid">
+          <section class="admin-panel" aria-labelledby="formTitle">
+            <div class="admin-panel-head">
+              <h2 id="formTitle">Додати запис</h2>
+              <button class="admin-link" id="newButton" type="button">Новий запис</button>
+            </div>
+
+            <form id="personForm" class="admin-form admin-person-form">
+              <label>
+                ID
+                <input id="personId" name="id" type="text" required pattern="[A-Za-z0-9_-]+" placeholder="person-011">
+              </label>
+              <label>
+                Ім'я / назва
+                <input id="personName" name="name" type="text" required placeholder="Волонтер фонду">
+              </label>
+              <label>
+                Роль
+                <input id="personRole" name="role" type="text" placeholder="Волонтер">
+              </label>
+              <label>
+                Категорія
+                <select id="personCategory" name="category" required></select>
+              </label>
+              <label>
+                Місто
+                <input id="personCity" name="city" type="text" placeholder="Дніпро">
+              </label>
+              <label>
+                Внесок
+                <textarea id="personContribution" name="contribution" rows="3" placeholder="Коротко про внесок"></textarea>
+              </label>
+              <label>
+                Текст подяки
+                <textarea id="personDescription" name="description" rows="4" placeholder="Текст подяки на 2-3 рядки"></textarea>
+              </label>
+              <label>
+                Фото
+                <input id="personPhoto" name="photo" type="text" placeholder="/assets/uploads/photo.webp">
+              </label>
+              <div class="admin-checks">
+                <label class="admin-check">
+                  <input id="personVisible" name="visible" type="checkbox" checked>
+                  <span>Показувати на сайті</span>
+                </label>
+                <label class="admin-check">
+                  <input id="personFeatured" name="featured" type="checkbox">
+                  <span>Показати на головній</span>
+                </label>
+              </div>
+              <button class="admin-primary" type="submit">Застосувати запис</button>
+            </form>
+          </section>
+
+          <section class="admin-panel" aria-labelledby="listTitle">
+            <div class="admin-panel-head">
+              <div>
+                <h2 id="listTitle">Список</h2>
+                <p class="admin-muted" id="countText">0 записів</p>
+              </div>
+              <label class="admin-search">
+                <span>Пошук</span>
+                <input id="searchInput" type="search" placeholder="Ім'я, роль, місто">
+              </label>
+            </div>
+            <div class="admin-list" id="peopleList"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/admin.js" defer></script>
+  </body>
+</html>

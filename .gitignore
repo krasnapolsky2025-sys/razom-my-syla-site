@@ -6,13 +6,11 @@ node_modules/
 dist/
 .vite/
 .vercel/
+.wrangler/
 *.log
 AUDIT_CONTEXT.md
 PRELAUNCH_NOTES.md
 MEDIA_PUBLIC_REVIEW.md
-admin.html
-admin.js
-admin.css
 server.js
 serve-site.bat
 data/site-content.json
