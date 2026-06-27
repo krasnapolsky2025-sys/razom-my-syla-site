@@ -18,6 +18,7 @@ const state = {
 const els = {
   appStatus: document.getElementById("appStatus"),
   appView: document.getElementById("appView"),
+  checkGithubButton: document.getElementById("checkGithubButton"),
   countText: document.getElementById("countText"),
   form: document.getElementById("personForm"),
   list: document.getElementById("peopleList"),
@@ -76,12 +77,12 @@ function nextId() {
 
 async function requestJson(url, options = {}) {
   const response = await fetch(url, {
+    ...options,
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...(options.headers || {})
-    },
-    ...options
+    }
   });
 
   let payload = {};
@@ -92,7 +93,7 @@ async function requestJson(url, options = {}) {
   }
 
   if (!response.ok) {
-    throw new Error(payload.error || "Request failed");
+    throw new Error(payload.error || payload.message || "Request failed");
   }
 
   return payload;
@@ -215,14 +216,52 @@ async function loadBoard() {
 
 async function saveBoard() {
   status(els.appStatus, "Зберігаю зміни в GitHub...");
-  const payload = await requestJson("/api/honor", {
-    method: "POST",
-    body: JSON.stringify({ items: state.items })
-  });
-  state.items = Array.isArray(payload.items) ? payload.items : state.items;
-  state.dirty = false;
-  renderList();
-  status(els.appStatus, "Збережено. Vercel оновить сайт після GitHub-коміту.", "success");
+  els.saveButton.disabled = true;
+
+  try {
+    const payload = await requestJson("/api/honor", {
+      method: "POST",
+      body: JSON.stringify({ items: state.items })
+    });
+    state.items = Array.isArray(payload.items) ? payload.items : state.items;
+    state.dirty = false;
+    renderList();
+    status(els.appStatus, "Сохранено в GitHub. Обновление сайта может занять 1–3 минуты.", "success");
+  } catch (error) {
+    status(els.appStatus, error.message || "Не удалось сохранить изменения.", "error");
+  } finally {
+    els.saveButton.disabled = false;
+  }
+}
+
+async function checkGithubConnection() {
+  status(els.appStatus, "Перевіряю з'єднання з GitHub...");
+  els.checkGithubButton.disabled = true;
+
+  try {
+    const payload = await requestJson("/api/admin-debug");
+    const ready = payload.githubTokenConfigured
+      && payload.githubOwnerConfigured
+      && payload.githubRepoConfigured
+      && payload.canReadHonorFile
+      && payload.honorFileShaPresent;
+
+    if (ready) {
+      status(els.appStatus, "GitHub готовий: токен налаштований, файл знайдений, sha отриманий, можна зберігати.", "success");
+    } else {
+      const missing = [];
+      if (!payload.githubTokenConfigured) missing.push("GITHUB_TOKEN");
+      if (!payload.githubOwnerConfigured) missing.push("GITHUB_OWNER");
+      if (!payload.githubRepoConfigured) missing.push("GITHUB_REPO");
+      if (!payload.canReadHonorFile) missing.push("data/honor-board.json");
+      if (!payload.honorFileShaPresent) missing.push("file sha");
+      status(els.appStatus, `GitHub не готовий: ${missing.join(", ")}.`, "error");
+    }
+  } catch (error) {
+    status(els.appStatus, error.message || "Не вдалося перевірити GitHub.", "error");
+  } finally {
+    els.checkGithubButton.disabled = false;
+  }
 }
 
 function upsertPerson(event) {
@@ -247,9 +286,9 @@ function upsertPerson(event) {
   }
 
   if (existingIndex >= 0) {
-    state.items[existingIndex] = person;
+    state.items = state.items.map((item, index) => index === existingIndex ? person : item);
   } else {
-    state.items.push(person);
+    state.items = [...state.items, person];
   }
 
   markDirty();
@@ -272,17 +311,23 @@ function handleListClick(event) {
   }
 
   if (action === "toggle-visible") {
-    state.items[index].visible = !state.items[index].visible;
+    state.items = state.items.map((item, itemIndex) => itemIndex === index ? {
+      ...item,
+      visible: !item.visible
+    } : item);
   }
 
   if (action === "toggle-featured") {
-    state.items[index].featured = !state.items[index].featured;
+    state.items = state.items.map((item, itemIndex) => itemIndex === index ? {
+      ...item,
+      featured: !item.featured
+    } : item);
   }
 
   if (action === "remove") {
     const confirmed = window.confirm("Видалити цей запис з дошки пошани?");
     if (!confirmed) return;
-    state.items.splice(index, 1);
+    state.items = state.items.filter((item) => item.id !== id);
   }
 
   markDirty();
@@ -328,6 +373,7 @@ els.loginForm.addEventListener("submit", login);
 els.logoutButton.addEventListener("click", logout);
 els.reloadButton.addEventListener("click", loadBoard);
 els.saveButton.addEventListener("click", saveBoard);
+els.checkGithubButton.addEventListener("click", checkGithubConnection);
 els.newButton.addEventListener("click", resetForm);
 els.form.addEventListener("submit", upsertPerson);
 els.list.addEventListener("click", handleListClick);

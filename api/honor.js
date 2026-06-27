@@ -1,5 +1,5 @@
 const { verifySession } = require("./_lib/auth");
-const { readHonorBoard, writeHonorBoard } = require("./_lib/github-honor");
+const { GithubHonorError, readHonorBoard, writeHonorBoard } = require("./_lib/github-honor");
 const { methodNotAllowed, readJsonBody, sendJson } = require("./_lib/http");
 
 module.exports = async function handler(req, res) {
@@ -19,8 +19,18 @@ module.exports = async function handler(req, res) {
 
     const body = await readJsonBody(req);
     const result = await writeHonorBoard(body.items);
-    return sendJson(res, 200, { ok: true, items: result.items, commit: result.commit, branch: result.branch });
-  } catch {
+    return sendJson(res, 200, {
+      ok: true,
+      items: result.items,
+      commit: result.commit,
+      branch: result.branch,
+      message: result.message || "Saved"
+    });
+  } catch (error) {
+    if (error instanceof GithubHonorError) {
+      return sendJson(res, error.statusCode || 400, { ok: false, error: error.message });
+    }
+
     return sendJson(res, 400, { ok: false, error: "Unable to process honor board" });
   }
 };
